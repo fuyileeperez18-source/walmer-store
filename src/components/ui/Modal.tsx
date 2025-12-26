@@ -41,7 +41,7 @@ const modalVariants = {
     y: 0,
     transition: {
       duration: 0.3,
-      ease: [0.25, 0.1, 0.25, 1],
+      ease: 'easeOut' as const,
     },
   },
   exit: {
@@ -246,7 +246,7 @@ export function Drawer({
       x: 0,
       transition: {
         duration: 0.3,
-        ease: [0.25, 0.1, 0.25, 1],
+        ease: 'easeOut' as const,
       },
     },
     exit: {
@@ -347,7 +347,7 @@ export function BottomSheet({
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             drag="y"
             dragConstraints={{ top: 0 }}
             dragElastic={0.2}

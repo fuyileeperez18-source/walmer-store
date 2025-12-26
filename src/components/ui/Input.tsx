@@ -56,7 +56,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
 
-          <motion.input
+          <input
             ref={ref}
             type={inputType}
             disabled={disabled}
@@ -72,12 +72,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               (rightIcon || type === 'password' || onClear) && 'pr-12',
               error && 'border-red-500 focus:ring-red-500/20 focus:border-red-500',
               success && 'border-green-500 focus:ring-green-500/20 focus:border-green-500',
+              isFocused && 'scale-[1.01]',
               className
             )}
-            animate={{
-              scale: isFocused ? 1.01 : 1,
-            }}
-            transition={{ duration: 0.2 }}
             {...props}
           />
 
@@ -237,6 +234,7 @@ export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
+  hint?: string;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(

@@ -47,6 +47,11 @@ export const authService = {
     api.setToken(null);
   },
 
+  async signInWithGoogle() {
+    // OAuth flow - redirect to backend Google OAuth endpoint
+    window.location.href = `${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/auth/google`;
+  },
+
   async resetPassword(email: string) {
     await api.post('/auth/reset-password', { email });
   },

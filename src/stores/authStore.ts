@@ -16,6 +16,7 @@ interface AuthState {
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, fullName: string) => Promise<void>;
   signOut: () => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updateProfile: (updates: Partial<AppUser>) => Promise<void>;
   fetchProfile: () => Promise<void>;
@@ -67,6 +68,15 @@ export const useAuthStore = create<AuthState>()(
         try {
           await authService.signOut();
           set({ user: null, profile: null, isAuthenticated: false });
+        } finally {
+          set({ isLoading: false });
+        }
+      },
+
+      signInWithGoogle: async () => {
+        set({ isLoading: true });
+        try {
+          await authService.signInWithGoogle();
         } finally {
           set({ isLoading: false });
         }
