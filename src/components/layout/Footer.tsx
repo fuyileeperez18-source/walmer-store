@@ -16,31 +16,31 @@ import { AnimatedSection } from '@/components/animations/AnimatedSection';
 
 const footerLinks = {
   shop: [
-    { name: 'All Products', href: '/shop' },
-    { name: 'New Arrivals', href: '/shop?filter=new' },
-    { name: 'Best Sellers', href: '/shop?filter=best' },
-    { name: 'Sale', href: '/shop?filter=sale' },
-    { name: 'Gift Cards', href: '/gift-cards' },
+    { name: 'Todos los Productos', href: '/shop' },
+    { name: 'Nuevos Ingresos', href: '/shop?filter=new' },
+    { name: 'Más Vendidos', href: '/shop?filter=best' },
+    { name: 'Ofertas', href: '/shop?filter=sale' },
+    { name: 'Tarjetas de Regalo', href: '/gift-cards' },
   ],
   support: [
-    { name: 'Contact Us', href: '/contact' },
-    { name: 'FAQs', href: '/faqs' },
-    { name: 'Shipping Info', href: '/shipping' },
-    { name: 'Returns & Exchanges', href: '/returns' },
-    { name: 'Size Guide', href: '/size-guide' },
+    { name: 'Contáctanos', href: '/contact' },
+    { name: 'Preguntas Frecuentes', href: '/faqs' },
+    { name: 'Info de Envío', href: '/shipping' },
+    { name: 'Devoluciones y Cambios', href: '/returns' },
+    { name: 'Guía de Tallas', href: '/size-guide' },
   ],
   company: [
-    { name: 'About Us', href: '/about' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Press', href: '/press' },
-    { name: 'Sustainability', href: '/sustainability' },
-    { name: 'Store Locator', href: '/stores' },
+    { name: 'Sobre Nosotros', href: '/about' },
+    { name: 'Trabaja con Nosotros', href: '/careers' },
+    { name: 'Prensa', href: '/press' },
+    { name: 'Sostenibilidad', href: '/sustainability' },
+    { name: 'Ubicación de Tiendas', href: '/stores' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
-    { name: 'Accessibility', href: '/accessibility' },
+    { name: 'Política de Privacidad', href: '/privacy' },
+    { name: 'Términos de Servicio', href: '/terms' },
+    { name: 'Política de Cookies', href: '/cookies' },
+    { name: 'Accesibilidad', href: '/accessibility' },
   ],
 };
 
@@ -71,10 +71,10 @@ export function Footer() {
           <div className="container mx-auto px-6 py-16">
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Join the WALMER community
+                Únete a la comunidad WALMER
               </h3>
               <p className="text-gray-400 mb-8">
-                Subscribe to our newsletter for exclusive offers, new arrivals, and style inspiration.
+                Suscríbete a nuestro boletín para ofertas exclusivas, nuevos productos e inspiración de estilo.
               </p>
 
               <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
@@ -83,7 +83,7 @@ export function Footer() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder="Ingresa tu correo"
                     required
                     className="w-full h-14 px-6 bg-primary-900 border border-primary-700 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-white/30 transition-colors"
                   />
@@ -95,10 +95,10 @@ export function Footer() {
                   className="h-14 px-8 bg-white text-black font-semibold rounded-full hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
                 >
                   {isSubscribed ? (
-                    'Subscribed!'
+                    '¡Suscrito!'
                   ) : (
                     <>
-                      Subscribe
+                      Suscribirse
                       <ArrowRight className="h-4 w-4" />
                     </>
                   )}
@@ -106,7 +106,7 @@ export function Footer() {
               </form>
 
               <p className="text-xs text-gray-500 mt-4">
-                By subscribing, you agree to our Privacy Policy and consent to receive updates.
+                Al suscribirte, aceptas nuestra Política de Privacidad y consientes recibir actualizaciones.
               </p>
             </div>
           </div>
@@ -122,7 +122,7 @@ export function Footer() {
               <span className="text-3xl font-bold text-white tracking-wider">WALMER</span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
-              Premium fashion for the modern individual. Discover timeless pieces crafted with attention to detail.
+              Moda premium para el individuo moderno. Descubre piezas atemporales creadas con atención al detalle.
             </p>
 
             {/* Contact info */}
@@ -168,7 +168,7 @@ export function Footer() {
 
           {/* Shop links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Shop</h4>
+            <h4 className="text-white font-semibold mb-4">Tienda</h4>
             <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
@@ -185,7 +185,7 @@ export function Footer() {
 
           {/* Support links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Support</h4>
+            <h4 className="text-white font-semibold mb-4">Soporte</h4>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
@@ -202,7 +202,7 @@ export function Footer() {
 
           {/* Company links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
+            <h4 className="text-white font-semibold mb-4">Empresa</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
@@ -241,12 +241,12 @@ export function Footer() {
         <div className="container mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-500 text-sm text-center md:text-left">
-              &copy; {new Date().getFullYear()} WALMER Store. All rights reserved.
+              &copy; {new Date().getFullYear()} WALMER Store. Todos los derechos reservados.
             </p>
 
             {/* Payment methods */}
             <div className="flex items-center gap-3">
-              <span className="text-gray-500 text-sm">We accept:</span>
+              <span className="text-gray-500 text-sm">Aceptamos:</span>
               <div className="flex items-center gap-2">
                 {['Visa', 'Mastercard', 'Amex', 'PayPal'].map((method) => (
                   <div

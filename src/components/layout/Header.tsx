@@ -18,29 +18,29 @@ import { IconButton } from '@/components/ui/Button';
 import { SearchInput } from '@/components/ui/Input';
 
 const navigation = [
-  { name: 'Home', href: '/' },
+  { name: 'Inicio', href: '/' },
   {
-    name: 'Shop',
+    name: 'Tienda',
     href: '/shop',
     children: [
-      { name: 'All Products', href: '/shop' },
-      { name: 'New Arrivals', href: '/shop?filter=new' },
-      { name: 'Best Sellers', href: '/shop?filter=best' },
-      { name: 'Sale', href: '/shop?filter=sale' },
+      { name: 'Todos los Productos', href: '/shop' },
+      { name: 'Nuevos Ingresos', href: '/shop?filter=new' },
+      { name: 'Más Vendidos', href: '/shop?filter=best' },
+      { name: 'Ofertas', href: '/shop?filter=sale' },
     ],
   },
   {
-    name: 'Collections',
+    name: 'Colecciones',
     href: '/collections',
     children: [
-      { name: 'Summer 2025', href: '/collections/summer-2025' },
-      { name: 'Winter Essentials', href: '/collections/winter-essentials' },
-      { name: 'Street Style', href: '/collections/street-style' },
-      { name: 'Minimalist', href: '/collections/minimalist' },
+      { name: 'Verano 2025', href: '/collections/summer-2025' },
+      { name: 'Esenciales de Invierno', href: '/collections/winter-essentials' },
+      { name: 'Estilo Urbano', href: '/collections/street-style' },
+      { name: 'Minimalista', href: '/collections/minimalist' },
     ],
   },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Nosotros', href: '/about' },
+  { name: 'Contacto', href: '/contact' },
 ];
 
 export function Header() {
@@ -259,7 +259,7 @@ export function Header() {
               <div className="container mx-auto px-6 py-6">
                 <div className="max-w-2xl mx-auto">
                   <SearchInput
-                    placeholder="Search products..."
+                    placeholder="Buscar productos..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onSearch={handleSearch}
@@ -302,7 +302,7 @@ export function Header() {
                 {/* Mobile search */}
                 <div className="mb-8">
                   <SearchInput
-                    placeholder="Search..."
+                    placeholder="Buscar..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onSearch={handleSearch}
@@ -350,14 +350,14 @@ export function Header() {
                       className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
                     >
                       <Heart className="h-5 w-5" />
-                      Wishlist
+                      Lista de Deseos
                     </Link>
                     <Link
                       to={isAuthenticated ? '/account' : '/login'}
                       className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
                     >
                       <User className="h-5 w-5" />
-                      {isAuthenticated ? 'My Account' : 'Login'}
+                      {isAuthenticated ? 'Mi Cuenta' : 'Iniciar Sesión'}
                     </Link>
                   </div>
                 </div>

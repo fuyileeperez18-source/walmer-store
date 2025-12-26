@@ -113,7 +113,7 @@ export function ProductCard({
                 animate={{ opacity: 1, x: 0 }}
                 className="px-3 py-1 bg-white text-black text-xs font-bold rounded-full"
               >
-                FEATURED
+                DESTACADO
               </motion.span>
             )}
             {discount > 0 && (
@@ -133,7 +133,7 @@ export function ProductCard({
                 transition={{ delay: 0.2 }}
                 className="px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full"
               >
-                LOW STOCK
+                ÚLTIMAS UNIDADES
               </motion.span>
             )}
           </div>
@@ -155,7 +155,7 @@ export function ProductCard({
                   className="flex-1 py-3 bg-white text-black font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors"
                 >
                   <ShoppingBag className="h-4 w-4" />
-                  Add to Cart
+                  Agregar al Carrito
                 </motion.button>
 
                 <motion.button
@@ -203,7 +203,7 @@ export function ProductCard({
         <div className="p-4">
           {/* Category */}
           <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-            {product.category?.name || 'Collection'}
+            {product.category?.name || 'Colección'}
           </p>
 
           {/* Name */}
@@ -357,7 +357,7 @@ export function FeaturedProductCard({ product }: { product: Product }) {
                 {formatCurrency(product.price)}
               </span>
               <span className="px-6 py-3 bg-white text-black font-semibold rounded-full group-hover:bg-gray-100 transition-colors">
-                Shop Now
+                Comprar Ahora
               </span>
             </motion.div>
           </div>

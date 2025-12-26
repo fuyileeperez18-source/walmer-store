@@ -44,7 +44,7 @@ export function CartDrawer() {
             <div className="flex items-center justify-between p-6 border-b border-primary-800">
               <div className="flex items-center gap-3">
                 <ShoppingBag className="h-6 w-6" />
-                <h2 className="text-xl font-semibold">Your Cart</h2>
+                <h2 className="text-xl font-semibold">Tu Carrito</h2>
                 <span className="px-2 py-0.5 bg-white text-black text-sm font-medium rounded-full">
                   {items.length}
                 </span>
@@ -61,12 +61,12 @@ export function CartDrawer() {
                   <div className="w-24 h-24 bg-primary-800 rounded-full flex items-center justify-center mb-6">
                     <ShoppingBag className="h-12 w-12 text-gray-500" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">Your cart is empty</h3>
+                  <h3 className="text-xl font-semibold mb-2">Tu carrito está vacío</h3>
                   <p className="text-gray-400 mb-6">
-                    Looks like you haven't added any items to your cart yet.
+                    Parece que aún no has agregado productos a tu carrito.
                   </p>
                   <Button onClick={() => { closeCart(); navigate('/shop'); }}>
-                    Start Shopping
+                    Empezar a Comprar
                   </Button>
                 </div>
               ) : (
@@ -168,12 +168,12 @@ export function CartDrawer() {
                     <span>{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-gray-400">
-                    <span>Shipping</span>
-                    <span>{shipping === 0 ? 'Free' : formatCurrency(shipping)}</span>
+                    <span>Envío</span>
+                    <span>{shipping === 0 ? 'Gratis' : formatCurrency(shipping)}</span>
                   </div>
                   {shipping > 0 && (
                     <p className="text-xs text-gray-500">
-                      Add {formatCurrency(100 - subtotal)} more for free shipping
+                      Agrega {formatCurrency(100 - subtotal)} más para envío gratis
                     </p>
                   )}
                 </div>
@@ -191,20 +191,20 @@ export function CartDrawer() {
                     className="w-full"
                     rightIcon={<ArrowRight className="h-5 w-5" />}
                   >
-                    Checkout
+                    Finalizar Compra
                   </Button>
                   <Button
                     variant="outline"
                     onClick={() => { closeCart(); navigate('/cart'); }}
                     className="w-full"
                   >
-                    View Cart
+                    Ver Carrito
                   </Button>
                 </div>
 
                 {/* Secure checkout badge */}
                 <p className="text-xs text-gray-500 text-center">
-                  Secure checkout powered by Stripe
+                  Pago seguro procesado por Stripe
                 </p>
               </div>
             )}
