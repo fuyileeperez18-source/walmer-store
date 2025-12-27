@@ -92,10 +92,13 @@ export function ChatWidget() {
   };
 
   // Welcome message
-  const welcomeMessage = {
+  const welcomeMessage: typeof messages[0] = {
     id: 'welcome',
+    conversation_id: 'local',
     content: '¡Hola! 👋 Bienvenido a MELO SPORTT. Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?',
-    sender_type: 'bot' as const,
+    sender_type: 'bot',
+    message_type: 'text',
+    is_read: true,
     created_at: new Date().toISOString(),
   };
 

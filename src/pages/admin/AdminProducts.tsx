@@ -14,7 +14,8 @@ import toast from 'react-hot-toast';
 import { Button, IconButton } from '@/components/ui/Button';
 import { Modal, ConfirmDialog } from '@/components/ui/Modal';
 import { Input, Textarea, Select } from '@/components/ui/Input';
-import { ImageUpload, UploadedImage } from '@/components/ui/ImageUpload';
+import { ImageUpload } from '@/components/ui/ImageUpload';
+import type { UploadedImage } from '@/components/ui/ImageUpload';
 import { formatCurrency } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 

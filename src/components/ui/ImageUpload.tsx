@@ -2,7 +2,8 @@ import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, X, Image as ImageIcon, Loader2, GripVertical, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { api, UploadResult } from '@/lib/api';
+import { api } from '@/lib/api';
+import type { UploadResult } from '@/lib/api';
 import toast from 'react-hot-toast';
 
 export interface UploadedImage {
