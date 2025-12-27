@@ -1,5 +1,5 @@
 // ============================================
-// WALMER STORE - API CLIENT
+// MELO SPORTT - API CLIENT
 // ============================================
 // Connects to the Node.js backend on Railway
 
@@ -13,6 +13,16 @@ interface ApiResponse<T> {
   count?: number;
 }
 
+export interface UploadResult {
+  public_id: string;
+  url: string;
+  secure_url: string;
+  width: number;
+  height: number;
+  format: string;
+  bytes: number;
+}
+
 class ApiClient {
   private baseUrl: string;
   private token: string | null = null;
@@ -20,15 +30,15 @@ class ApiClient {
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
     // Load token from localStorage on init
-    this.token = localStorage.getItem('walmer_token');
+    this.token = localStorage.getItem('melo_sportt_token');
   }
 
   setToken(token: string | null) {
     this.token = token;
     if (token) {
-      localStorage.setItem('walmer_token', token);
+      localStorage.setItem('melo_sportt_token', token);
     } else {
-      localStorage.removeItem('walmer_token');
+      localStorage.removeItem('melo_sportt_token');
     }
   }
 
@@ -102,6 +112,86 @@ class ApiClient {
     return this.request<T>(endpoint, {
       method: 'DELETE',
     });
+  }
+
+  // Upload methods for file handling
+  async uploadFile<T>(endpoint: string, file: File, additionalData?: Record<string, string>): Promise<ApiResponse<T>> {
+    const url = `${this.baseUrl}${endpoint}`;
+    const formData = new FormData();
+    formData.append('image', file);
+
+    if (additionalData) {
+      Object.entries(additionalData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+    }
+
+    const headers: HeadersInit = {};
+    if (this.token) {
+      headers['Authorization'] = `Bearer ${this.token}`;
+    }
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed');
+      }
+
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error('Network error');
+    }
+  }
+
+  async uploadFiles<T>(endpoint: string, files: File[], additionalData?: Record<string, string>): Promise<ApiResponse<T>> {
+    const url = `${this.baseUrl}${endpoint}`;
+    const formData = new FormData();
+
+    files.forEach((file) => {
+      formData.append('images', file);
+    });
+
+    if (additionalData) {
+      Object.entries(additionalData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+    }
+
+    const headers: HeadersInit = {};
+    if (this.token) {
+      headers['Authorization'] = `Bearer ${this.token}`;
+    }
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed');
+      }
+
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error('Network error');
+    }
   }
 }
 

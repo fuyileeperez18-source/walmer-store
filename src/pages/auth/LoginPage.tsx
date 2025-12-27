@@ -12,8 +12,8 @@ import { Input } from '@/components/ui/Input';
 import { useAuthStore } from '@/stores/authStore';
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  email: z.string().email('Correo electrónico inválido'),
+  password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
   rememberMe: z.boolean().optional(),
 });
 
@@ -38,10 +38,10 @@ export function LoginPage() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       await signIn(data.email, data.password);
-      toast.success('Welcome back!');
+      toast.success('¡Bienvenido de nuevo!');
       navigate(from, { replace: true });
     } catch (error) {
-      toast.error('Invalid email or password');
+      toast.error('Correo o contraseña inválidos');
     }
   };
 
@@ -49,7 +49,7 @@ export function LoginPage() {
     try {
       await signInWithGoogle();
     } catch (error) {
-      toast.error('Failed to sign in with Google');
+      toast.error('Error al iniciar sesión con Google');
     }
   };
 
@@ -66,13 +66,13 @@ export function LoginPage() {
         <div className="absolute inset-0 flex items-center justify-center p-12">
           <div className="max-w-lg text-center">
             <Link to="/" className="inline-block mb-8">
-              <span className="text-4xl font-bold text-white tracking-wider">WALMER</span>
+              <span className="text-4xl font-bold text-white tracking-wider">MELO SPORTT</span>
             </Link>
             <h2 className="text-3xl font-bold text-white mb-4">
-              Welcome back to WALMER
+              Bienvenido de nuevo a MELO SPORTT
             </h2>
             <p className="text-gray-300">
-              Sign in to access your account, track orders, and enjoy personalized shopping.
+              Inicia sesión para acceder a tu cuenta, rastrear pedidos y disfrutar de una experiencia de compra personalizada.
             </p>
           </div>
         </div>
@@ -87,14 +87,14 @@ export function LoginPage() {
         >
           {/* Mobile logo */}
           <Link to="/" className="lg:hidden block text-center mb-8">
-            <span className="text-3xl font-bold text-white tracking-wider">WALMER</span>
+            <span className="text-3xl font-bold text-white tracking-wider">MELO SPORTT</span>
           </Link>
 
-          <h1 className="text-3xl font-bold text-white mb-2">Sign In</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Iniciar Sesión</h1>
           <p className="text-gray-400 mb-8">
-            Don't have an account?{' '}
+            ¿No tienes una cuenta?{' '}
             <Link to="/register" className="text-white hover:underline">
-              Create one
+              Crear una
             </Link>
           </p>
 
@@ -123,7 +123,7 @@ export function LoginPage() {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            Continue with Google
+            Continuar con Google
           </Button>
 
           {/* Divider */}
@@ -132,16 +132,16 @@ export function LoginPage() {
               <div className="w-full border-t border-primary-800" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-black text-gray-400">or continue with email</span>
+              <span className="px-4 bg-black text-gray-400">o continuar con correo</span>
             </div>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <Input
-              label="Email"
+              label="Correo Electrónico"
               type="email"
-              placeholder="your@email.com"
+              placeholder="tu@correo.com"
               leftIcon={<Mail className="h-5 w-5" />}
               error={errors.email?.message}
               {...register('email')}
@@ -149,9 +149,9 @@ export function LoginPage() {
 
             <div className="relative">
               <Input
-                label="Password"
+                label="Contraseña"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Enter your password"
+                placeholder="Ingresa tu contraseña"
                 leftIcon={<Lock className="h-5 w-5" />}
                 error={errors.password?.message}
                 {...register('password')}
@@ -172,13 +172,13 @@ export function LoginPage() {
                   className="w-4 h-4 rounded border-primary-700 bg-primary-900 text-white focus:ring-white"
                   {...register('rememberMe')}
                 />
-                <span className="text-gray-400 text-sm">Remember me</span>
+                <span className="text-gray-400 text-sm">Recordarme</span>
               </label>
               <Link
                 to="/forgot-password"
                 className="text-sm text-gray-400 hover:text-white transition-colors"
               >
-                Forgot password?
+                ¿Olvidaste tu contraseña?
               </Link>
             </div>
 
@@ -189,19 +189,19 @@ export function LoginPage() {
               isLoading={isLoading}
               rightIcon={<ArrowRight className="h-5 w-5" />}
             >
-              Sign In
+              Iniciar Sesión
             </Button>
           </form>
 
           {/* Terms */}
           <p className="text-center text-gray-500 text-sm mt-8">
-            By signing in, you agree to our{' '}
+            Al iniciar sesión, aceptas nuestros{' '}
             <Link to="/terms" className="text-gray-400 hover:text-white">
-              Terms of Service
+              Términos de Servicio
             </Link>{' '}
-            and{' '}
+            y{' '}
             <Link to="/privacy" className="text-gray-400 hover:text-white">
-              Privacy Policy
+              Política de Privacidad
             </Link>
           </p>
         </motion.div>

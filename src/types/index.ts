@@ -1,5 +1,5 @@
 // ============================================
-// WALMER STORE - TYPE DEFINITIONS
+// MELO SPORTT - TYPE DEFINITIONS
 // ============================================
 
 // User Types

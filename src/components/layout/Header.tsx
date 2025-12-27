@@ -135,7 +135,7 @@ export function Header() {
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="text-2xl md:text-3xl font-bold text-white tracking-wider">
-                  WALMER
+                  MELO SPORTT
                 </span>
                 <motion.span
                   className="absolute -bottom-1 left-0 h-0.5 bg-white"
@@ -293,7 +293,7 @@ export function Header() {
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-8">
-                  <span className="text-2xl font-bold text-white">WALMER</span>
+                  <span className="text-2xl font-bold text-white">MELO SPORTT</span>
                   <IconButton onClick={toggleMobileMenu}>
                     <X className="h-6 w-6" />
                   </IconButton>

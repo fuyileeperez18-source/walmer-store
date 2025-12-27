@@ -12,29 +12,29 @@ import { Input } from '@/components/ui/Input';
 import { useAuthStore } from '@/stores/authStore';
 
 const registerSchema = z.object({
-  fullName: z.string().min(2, 'Full name is required'),
-  email: z.string().email('Invalid email address'),
+  fullName: z.string().min(2, 'El nombre completo es requerido'),
+  email: z.string().email('Correo electrónico inválido'),
   password: z.string()
-    .min(8, 'Password must be at least 8 characters')
-    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .regex(/[0-9]/, 'Password must contain at least one number'),
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
+    .regex(/[A-Z]/, 'La contraseña debe contener al menos una letra mayúscula')
+    .regex(/[a-z]/, 'La contraseña debe contener al menos una letra minúscula')
+    .regex(/[0-9]/, 'La contraseña debe contener al menos un número'),
   confirmPassword: z.string(),
   acceptTerms: z.boolean().refine((val) => val === true, {
-    message: 'You must accept the terms and conditions',
+    message: 'Debes aceptar los términos y condiciones',
   }),
 }).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
+  message: "Las contraseñas no coinciden",
   path: ['confirmPassword'],
 });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 const passwordRequirements = [
-  { regex: /.{8,}/, text: 'At least 8 characters' },
-  { regex: /[A-Z]/, text: 'One uppercase letter' },
-  { regex: /[a-z]/, text: 'One lowercase letter' },
-  { regex: /[0-9]/, text: 'One number' },
+  { regex: /.{8,}/, text: 'Al menos 8 caracteres' },
+  { regex: /[A-Z]/, text: 'Una letra mayúscula' },
+  { regex: /[a-z]/, text: 'Una letra minúscula' },
+  { regex: /[0-9]/, text: 'Un número' },
 ];
 
 export function RegisterPage() {
@@ -54,10 +54,10 @@ export function RegisterPage() {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       await signUp(data.email, data.password, data.fullName);
-      toast.success('Account created! Please check your email to verify.');
+      toast.success('¡Cuenta creada! Por favor revisa tu correo para verificar.');
       navigate('/login');
     } catch (error) {
-      toast.error('Failed to create account');
+      toast.error('Error al crear la cuenta');
     }
   };
 
@@ -65,7 +65,7 @@ export function RegisterPage() {
     try {
       await signInWithGoogle();
     } catch (error) {
-      toast.error('Failed to sign in with Google');
+      toast.error('Error al iniciar sesión con Google');
     }
   };
 
@@ -82,20 +82,20 @@ export function RegisterPage() {
         <div className="absolute inset-0 flex items-center justify-center p-12">
           <div className="max-w-lg text-center">
             <Link to="/" className="inline-block mb-8">
-              <span className="text-4xl font-bold text-white tracking-wider">WALMER</span>
+              <span className="text-4xl font-bold text-white tracking-wider">MELO SPORTT</span>
             </Link>
             <h2 className="text-3xl font-bold text-white mb-4">
-              Join the WALMER family
+              Únete a la familia MELO SPORTT
             </h2>
             <p className="text-gray-300 mb-8">
-              Create an account to enjoy exclusive benefits, faster checkout, and order tracking.
+              Crea una cuenta para disfrutar de beneficios exclusivos, compras más rápidas y seguimiento de pedidos.
             </p>
             <div className="space-y-4 text-left max-w-sm mx-auto">
               {[
-                'Exclusive member discounts',
-                'Early access to new collections',
-                'Order tracking & history',
-                'Wishlist & saved items',
+                'Descuentos exclusivos para miembros',
+                'Acceso anticipado a nuevas colecciones',
+                'Seguimiento e historial de pedidos',
+                'Lista de deseos y artículos guardados',
               ].map((benefit) => (
                 <div key={benefit} className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
@@ -118,14 +118,14 @@ export function RegisterPage() {
         >
           {/* Mobile logo */}
           <Link to="/" className="lg:hidden block text-center mb-8">
-            <span className="text-3xl font-bold text-white tracking-wider">WALMER</span>
+            <span className="text-3xl font-bold text-white tracking-wider">MELO SPORTT</span>
           </Link>
 
-          <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Crear Cuenta</h1>
           <p className="text-gray-400 mb-8">
-            Already have an account?{' '}
+            ¿Ya tienes una cuenta?{' '}
             <Link to="/login" className="text-white hover:underline">
-              Sign in
+              Iniciar sesión
             </Link>
           </p>
 
@@ -154,7 +154,7 @@ export function RegisterPage() {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            Continue with Google
+            Continuar con Google
           </Button>
 
           {/* Divider */}
@@ -163,25 +163,25 @@ export function RegisterPage() {
               <div className="w-full border-t border-primary-800" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-black text-gray-400">or register with email</span>
+              <span className="px-4 bg-black text-gray-400">o registrarse con correo</span>
             </div>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <Input
-              label="Full Name"
+              label="Nombre Completo"
               type="text"
-              placeholder="John Doe"
+              placeholder="Juan Pérez"
               leftIcon={<User className="h-5 w-5" />}
               error={errors.fullName?.message}
               {...register('fullName')}
             />
 
             <Input
-              label="Email"
+              label="Correo Electrónico"
               type="email"
-              placeholder="your@email.com"
+              placeholder="tu@correo.com"
               leftIcon={<Mail className="h-5 w-5" />}
               error={errors.email?.message}
               {...register('email')}
@@ -189,9 +189,9 @@ export function RegisterPage() {
 
             <div className="relative">
               <Input
-                label="Password"
+                label="Contraseña"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Create a password"
+                placeholder="Crea una contraseña"
                 leftIcon={<Lock className="h-5 w-5" />}
                 error={errors.password?.message}
                 {...register('password', {
@@ -225,9 +225,9 @@ export function RegisterPage() {
             )}
 
             <Input
-              label="Confirm Password"
+              label="Confirmar Contraseña"
               type={showPassword ? 'text' : 'password'}
-              placeholder="Confirm your password"
+              placeholder="Confirma tu contraseña"
               leftIcon={<Lock className="h-5 w-5" />}
               error={errors.confirmPassword?.message}
               {...register('confirmPassword')}
@@ -240,13 +240,13 @@ export function RegisterPage() {
                 {...register('acceptTerms')}
               />
               <span className="text-gray-400 text-sm">
-                I agree to the{' '}
+                Acepto los{' '}
                 <Link to="/terms" className="text-white hover:underline">
-                  Terms of Service
+                  Términos de Servicio
                 </Link>{' '}
-                and{' '}
+                y la{' '}
                 <Link to="/privacy" className="text-white hover:underline">
-                  Privacy Policy
+                  Política de Privacidad
                 </Link>
               </span>
             </label>
@@ -261,7 +261,7 @@ export function RegisterPage() {
               isLoading={isLoading}
               rightIcon={<ArrowRight className="h-5 w-5" />}
             >
-              Create Account
+              Crear Cuenta
             </Button>
           </form>
         </motion.div>

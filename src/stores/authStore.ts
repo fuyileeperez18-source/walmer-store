@@ -124,7 +124,7 @@ export const useAuthStore = create<AuthState>()(
       },
     }),
     {
-      name: 'walmer-auth',
+      name: 'melo-sportt-auth',
       partialize: (state) => ({
         user: state.user,
         isAuthenticated: state.isAuthenticated,

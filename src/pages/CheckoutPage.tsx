@@ -42,44 +42,44 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || 'pk_t
 
 // Form schemas
 const shippingSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  firstName: z.string().min(2, 'First name is required'),
-  lastName: z.string().min(2, 'Last name is required'),
-  phone: z.string().min(10, 'Valid phone number is required'),
-  address: z.string().min(5, 'Address is required'),
+  email: z.string().email('Correo electrónico inválido'),
+  firstName: z.string().min(2, 'El nombre es requerido'),
+  lastName: z.string().min(2, 'El apellido es requerido'),
+  phone: z.string().min(10, 'Número de teléfono válido requerido'),
+  address: z.string().min(5, 'La dirección es requerida'),
   apartment: z.string().optional(),
-  city: z.string().min(2, 'City is required'),
-  state: z.string().min(2, 'State is required'),
-  postalCode: z.string().min(4, 'Postal code is required'),
-  country: z.string().min(2, 'Country is required'),
+  city: z.string().min(2, 'La ciudad es requerida'),
+  state: z.string().min(2, 'El departamento es requerido'),
+  postalCode: z.string().min(4, 'El código postal es requerido'),
+  country: z.string().min(2, 'El país es requerido'),
   saveInfo: z.boolean().optional(),
 });
 
 type ShippingFormData = z.infer<typeof shippingSchema>;
 
 const steps = [
-  { id: 'shipping', name: 'Shipping', icon: Truck },
-  { id: 'payment', name: 'Payment', icon: CreditCard },
-  { id: 'confirmation', name: 'Confirmation', icon: Check },
+  { id: 'shipping', name: 'Envío', icon: Truck },
+  { id: 'payment', name: 'Pago', icon: CreditCard },
+  { id: 'confirmation', name: 'Confirmación', icon: Check },
 ];
 
 const shippingMethods = [
-  { id: 'standard', name: 'Standard Shipping', price: 10, days: '5-7 business days' },
-  { id: 'express', name: 'Express Shipping', price: 25, days: '2-3 business days' },
-  { id: 'overnight', name: 'Overnight Shipping', price: 50, days: '1 business day' },
+  { id: 'standard', name: 'Envío Estándar', price: 15000, days: '5-7 días hábiles' },
+  { id: 'express', name: 'Envío Express', price: 35000, days: '2-3 días hábiles' },
+  { id: 'overnight', name: 'Envío Prioritario', price: 60000, days: '1 día hábil' },
 ];
 
 const countries = [
-  { value: 'US', label: 'United States' },
-  { value: 'CA', label: 'Canada' },
-  { value: 'MX', label: 'Mexico' },
-  { value: 'GB', label: 'United Kingdom' },
-  { value: 'ES', label: 'Spain' },
-  { value: 'FR', label: 'France' },
-  { value: 'DE', label: 'Germany' },
-  { value: 'AR', label: 'Argentina' },
   { value: 'CO', label: 'Colombia' },
+  { value: 'MX', label: 'México' },
+  { value: 'AR', label: 'Argentina' },
   { value: 'CL', label: 'Chile' },
+  { value: 'PE', label: 'Perú' },
+  { value: 'EC', label: 'Ecuador' },
+  { value: 'VE', label: 'Venezuela' },
+  { value: 'PA', label: 'Panamá' },
+  { value: 'US', label: 'Estados Unidos' },
+  { value: 'ES', label: 'España' },
 ];
 
 // Payment form component
@@ -126,7 +126,7 @@ function PaymentForm({
       });
 
       if (stripeError) {
-        setError(stripeError.message || 'Payment failed');
+        setError(stripeError.message || 'El pago falló');
         setIsProcessing(false);
         return;
       }
@@ -137,7 +137,7 @@ function PaymentForm({
       // Success
       onSuccess(paymentMethod?.id || 'demo_payment_id');
     } catch (err) {
-      setError('Payment failed. Please try again.');
+      setError('El pago falló. Por favor intenta de nuevo.');
       setIsProcessing(false);
     }
   };
@@ -146,7 +146,7 @@ function PaymentForm({
     <form onSubmit={handleSubmit}>
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-300 mb-3">
-          Card Details
+          Datos de la Tarjeta
         </label>
         <div className="p-4 bg-primary-800 border border-primary-700 rounded-lg">
           <CardElement
@@ -182,7 +182,7 @@ function PaymentForm({
       <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/20 rounded-lg mb-6">
         <Shield className="h-5 w-5 text-green-500" />
         <p className="text-green-400 text-sm">
-          Your payment is secured with 256-bit SSL encryption
+          Tu pago está protegido con encriptación SSL de 256 bits
         </p>
       </div>
 
@@ -194,7 +194,7 @@ function PaymentForm({
           disabled={isProcessing}
           leftIcon={<ChevronLeft className="h-4 w-4" />}
         >
-          Back
+          Volver
         </Button>
         <Button
           type="submit"
@@ -203,7 +203,7 @@ function PaymentForm({
           disabled={!stripe || isProcessing}
           leftIcon={<Lock className="h-4 w-4" />}
         >
-          Pay {formatCurrency(total)}
+          Pagar {formatCurrency(total)}
         </Button>
       </div>
     </form>
@@ -267,7 +267,7 @@ export function CheckoutPage() {
     // TODO: Save order to Supabase
     // orderService.create({...})
 
-    toast.success('Payment successful!');
+    toast.success('¡Pago exitoso!');
   };
 
   return (
@@ -276,11 +276,11 @@ export function CheckoutPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Link to="/" className="text-2xl font-bold text-white">
-            WALMER
+            MELO SPORTT
           </Link>
           <div className="flex items-center gap-2 text-sm text-gray-400">
             <Lock className="h-4 w-4" />
-            Secure Checkout
+            Pago Seguro
           </div>
         </div>
 
@@ -342,17 +342,17 @@ export function CheckoutPage() {
                   exit={{ opacity: 0, x: -20 }}
                 >
                   <h2 className="text-2xl font-bold text-white mb-6">
-                    Shipping Information
+                    Información de Envío
                   </h2>
 
                   <form onSubmit={handleSubmit(onShippingSubmit)} className="space-y-6">
                     {/* Contact */}
                     <div>
-                      <h3 className="text-lg font-medium text-white mb-4">Contact</h3>
+                      <h3 className="text-lg font-medium text-white mb-4">Contacto</h3>
                       <Input
-                        label="Email"
+                        label="Correo Electrónico"
                         type="email"
-                        placeholder="your@email.com"
+                        placeholder="tu@correo.com"
                         leftIcon={<Mail className="h-5 w-5" />}
                         error={errors.email?.message}
                         {...register('email')}
@@ -362,15 +362,15 @@ export function CheckoutPage() {
                     {/* Name */}
                     <div className="grid sm:grid-cols-2 gap-4">
                       <Input
-                        label="First Name"
-                        placeholder="John"
+                        label="Nombre"
+                        placeholder="Juan"
                         leftIcon={<User className="h-5 w-5" />}
                         error={errors.firstName?.message}
                         {...register('firstName')}
                       />
                       <Input
-                        label="Last Name"
-                        placeholder="Doe"
+                        label="Apellido"
+                        placeholder="Pérez"
                         error={errors.lastName?.message}
                         {...register('lastName')}
                       />
@@ -378,9 +378,9 @@ export function CheckoutPage() {
 
                     {/* Phone */}
                     <Input
-                      label="Phone"
+                      label="Teléfono"
                       type="tel"
-                      placeholder="+1 (555) 000-0000"
+                      placeholder="+57 300 123 4567"
                       leftIcon={<Phone className="h-5 w-5" />}
                       error={errors.phone?.message}
                       {...register('phone')}
@@ -389,45 +389,45 @@ export function CheckoutPage() {
                     {/* Address */}
                     <div>
                       <h3 className="text-lg font-medium text-white mb-4 mt-8">
-                        Shipping Address
+                        Dirección de Envío
                       </h3>
                       <div className="space-y-4">
                         <Input
-                          label="Address"
-                          placeholder="123 Main Street"
+                          label="Dirección"
+                          placeholder="Calle 123 #45-67"
                           leftIcon={<MapPin className="h-5 w-5" />}
                           error={errors.address?.message}
                           {...register('address')}
                         />
                         <Input
-                          label="Apartment, suite, etc. (optional)"
-                          placeholder="Apt 4B"
+                          label="Apartamento, casa, etc. (opcional)"
+                          placeholder="Apto 401"
                           leftIcon={<Building className="h-5 w-5" />}
                           {...register('apartment')}
                         />
                         <div className="grid sm:grid-cols-2 gap-4">
                           <Input
-                            label="City"
-                            placeholder="New York"
+                            label="Ciudad"
+                            placeholder="Bogotá"
                             error={errors.city?.message}
                             {...register('city')}
                           />
                           <Input
-                            label="State / Province"
-                            placeholder="NY"
+                            label="Departamento / Estado"
+                            placeholder="Cundinamarca"
                             error={errors.state?.message}
                             {...register('state')}
                           />
                         </div>
                         <div className="grid sm:grid-cols-2 gap-4">
                           <Input
-                            label="Postal Code"
-                            placeholder="10001"
+                            label="Código Postal"
+                            placeholder="110111"
                             error={errors.postalCode?.message}
                             {...register('postalCode')}
                           />
                           <Select
-                            label="Country"
+                            label="País"
                             options={countries}
                             error={errors.country?.message}
                             {...register('country')}
@@ -439,7 +439,7 @@ export function CheckoutPage() {
                     {/* Shipping method */}
                     <div>
                       <h3 className="text-lg font-medium text-white mb-4 mt-8">
-                        Shipping Method
+                        Método de Envío
                       </h3>
                       <div className="space-y-3">
                         {shippingMethods.map((method) => (
@@ -479,16 +479,16 @@ export function CheckoutPage() {
                               </div>
                             </div>
                             <span className="text-white font-medium">
-                              {subtotal >= 100 && method.id === 'standard'
-                                ? 'FREE'
+                              {subtotal >= 200000 && method.id === 'standard'
+                                ? 'GRATIS'
                                 : formatCurrency(method.price)}
                             </span>
                           </label>
                         ))}
                       </div>
-                      {subtotal < 100 && (
+                      {subtotal < 200000 && (
                         <p className="text-sm text-gray-400 mt-2">
-                          Add {formatCurrency(100 - subtotal)} more for free standard shipping
+                          Agrega {formatCurrency(200000 - subtotal)} más para envío estándar gratis
                         </p>
                       )}
                     </div>
@@ -501,7 +501,7 @@ export function CheckoutPage() {
                         {...register('saveInfo')}
                       />
                       <span className="text-gray-300">
-                        Save this information for next time
+                        Guardar esta información para la próxima vez
                       </span>
                     </label>
 
@@ -513,14 +513,14 @@ export function CheckoutPage() {
                         onClick={() => navigate('/cart')}
                         leftIcon={<ChevronLeft className="h-4 w-4" />}
                       >
-                        Back to Cart
+                        Volver al Carrito
                       </Button>
                       <Button
                         type="submit"
                         className="flex-1"
                         rightIcon={<ChevronRight className="h-4 w-4" />}
                       >
-                        Continue to Payment
+                        Continuar al Pago
                       </Button>
                     </div>
                   </form>
@@ -535,18 +535,18 @@ export function CheckoutPage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-white mb-6">Payment</h2>
+                  <h2 className="text-2xl font-bold text-white mb-6">Pago</h2>
 
                   {/* Shipping summary */}
                   {shippingData && (
                     <div className="p-4 bg-primary-900 rounded-lg mb-6">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-gray-400">Shipping to:</span>
+                        <span className="text-gray-400">Enviar a:</span>
                         <button
                           onClick={() => setCurrentStep(0)}
                           className="text-sm text-white hover:underline"
                         >
-                          Edit
+                          Editar
                         </button>
                       </div>
                       <p className="text-white">
@@ -574,7 +574,7 @@ export function CheckoutPage() {
 
                   {/* Payment methods icons */}
                   <div className="flex items-center justify-center gap-4 mt-8 pt-8 border-t border-primary-800">
-                    <span className="text-gray-500 text-sm">We accept:</span>
+                    <span className="text-gray-500 text-sm">Aceptamos:</span>
                     {['Visa', 'Mastercard', 'Amex', 'PayPal'].map((method) => (
                       <div
                         key={method}
@@ -605,34 +605,34 @@ export function CheckoutPage() {
                   </motion.div>
 
                   <h2 className="text-3xl font-bold text-white mb-4">
-                    Thank you for your order!
+                    ¡Gracias por tu compra!
                   </h2>
                   <p className="text-gray-400 mb-2">
-                    Your order has been confirmed and will be shipped soon.
+                    Tu pedido ha sido confirmado y será enviado pronto.
                   </p>
                   <p className="text-white font-medium mb-8">
-                    Order Number: <span className="text-green-400">{orderNumber}</span>
+                    Número de Pedido: <span className="text-green-400">{orderNumber}</span>
                   </p>
 
                   <div className="p-6 bg-primary-900 rounded-xl text-left mb-8 max-w-md mx-auto">
-                    <h3 className="font-medium text-white mb-4">What's next?</h3>
+                    <h3 className="font-medium text-white mb-4">¿Qué sigue?</h3>
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
                         <Mail className="h-5 w-5 text-gray-400 mt-0.5" />
                         <span className="text-gray-300 text-sm">
-                          You'll receive an email confirmation at {shippingData?.email}
+                          Recibirás una confirmación por correo en {shippingData?.email}
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
                         <Package className="h-5 w-5 text-gray-400 mt-0.5" />
                         <span className="text-gray-300 text-sm">
-                          We'll send you shipping updates via email and WhatsApp
+                          Te enviaremos actualizaciones de envío por correo y WhatsApp
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
                         <Truck className="h-5 w-5 text-gray-400 mt-0.5" />
                         <span className="text-gray-300 text-sm">
-                          Estimated delivery: {selectedShipping?.days}
+                          Tiempo estimado de entrega: {selectedShipping?.days}
                         </span>
                       </li>
                     </ul>
@@ -640,10 +640,10 @@ export function CheckoutPage() {
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button variant="outline" onClick={() => navigate('/account/orders')}>
-                      View Order
+                      Ver Pedido
                     </Button>
                     <Button onClick={() => navigate('/shop')}>
-                      Continue Shopping
+                      Seguir Comprando
                     </Button>
                   </div>
                 </motion.div>
@@ -655,7 +655,7 @@ export function CheckoutPage() {
           {currentStep < 2 && (
             <div className="lg:col-span-1">
               <div className="sticky top-28 bg-primary-900 rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-6">Order Summary</h3>
+                <h3 className="text-lg font-semibold text-white mb-6">Resumen del Pedido</h3>
 
                 {/* Items */}
                 <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">
@@ -693,11 +693,11 @@ export function CheckoutPage() {
                 <div className="flex gap-2 mb-6">
                   <input
                     type="text"
-                    placeholder="Coupon code"
+                    placeholder="Código de cupón"
                     className="flex-1 h-11 px-4 bg-primary-800 border border-primary-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white/30"
                   />
                   <Button variant="outline" size="sm">
-                    Apply
+                    Aplicar
                   </Button>
                 </div>
 
@@ -708,11 +708,11 @@ export function CheckoutPage() {
                     <span>{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-gray-400">
-                    <span>Shipping</span>
-                    <span>{shippingCost === 0 ? 'FREE' : formatCurrency(shippingCost)}</span>
+                    <span>Envío</span>
+                    <span>{shippingCost === 0 ? 'GRATIS' : formatCurrency(shippingCost)}</span>
                   </div>
                   <div className="flex justify-between text-gray-400">
-                    <span>Tax</span>
+                    <span>Impuestos</span>
                     <span>{formatCurrency(tax)}</span>
                   </div>
                   <div className="flex justify-between text-xl font-semibold text-white pt-3 border-t border-primary-800">

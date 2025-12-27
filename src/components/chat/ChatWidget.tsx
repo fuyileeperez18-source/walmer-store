@@ -8,6 +8,11 @@ import {
   Bot,
   User,
   Sparkles,
+  Plus,
+  Edit2,
+  Trash2,
+  Check,
+  MoreVertical,
 } from 'lucide-react';
 import { useChatStore, quickReplies } from '@/stores/chatStore';
 import { cn } from '@/lib/utils';
@@ -24,9 +29,15 @@ export function ChatWidget() {
     maximizeChat,
     sendMessage,
     handleQuickReply,
+    startNewConversation,
+    editMessage,
+    deleteMessage,
   } = useChatStore();
 
   const [inputValue, setInputValue] = useState('');
+  const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
+  const [editingContent, setEditingContent] = useState('');
+  const [showMenuForMessage, setShowMenuForMessage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -56,10 +67,34 @@ export function ChatWidget() {
     }
   };
 
+  const handleStartEdit = (messageId: string, content: string) => {
+    setEditingMessageId(messageId);
+    setEditingContent(content);
+    setShowMenuForMessage(null);
+  };
+
+  const handleSaveEdit = () => {
+    if (editingMessageId && editingContent.trim()) {
+      editMessage(editingMessageId, editingContent.trim());
+      setEditingMessageId(null);
+      setEditingContent('');
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingMessageId(null);
+    setEditingContent('');
+  };
+
+  const handleDeleteMessage = (messageId: string) => {
+    deleteMessage(messageId);
+    setShowMenuForMessage(null);
+  };
+
   // Welcome message
   const welcomeMessage = {
     id: 'welcome',
-    content: '¡Hola! 👋 Bienvenido a WALMER Store. Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?',
+    content: '¡Hola! 👋 Bienvenido a MELO SPORTT. Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?',
     sender_type: 'bot' as const,
     created_at: new Date().toISOString(),
   };
@@ -117,20 +152,29 @@ export function ChatWidget() {
                   <span className="absolute bottom-0 right-0 h-3 w-3 bg-green-500 rounded-full border-2 border-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">Asistente WALMER</h3>
+                  <h3 className="font-semibold">Asistente MELO SPORTT</h3>
                   <p className="text-xs text-gray-600">En línea • Listo para ayudarte</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
                 <button
+                  onClick={startNewConversation}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  title="Nueva conversación"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+                <button
                   onClick={isMinimized ? maximizeChat : minimizeChat}
                   className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  title={isMinimized ? "Maximizar" : "Minimizar"}
                 >
                   <Minus className="h-4 w-4" />
                 </button>
                 <button
                   onClick={closeChat}
                   className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  title="Cerrar"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -147,7 +191,7 @@ export function ChatWidget() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className={cn(
-                        'flex gap-3',
+                        'flex gap-3 group relative',
                         message.sender_type === 'user' && 'flex-row-reverse'
                       )}
                     >
@@ -168,15 +212,77 @@ export function ChatWidget() {
                       </div>
 
                       {/* Message bubble */}
-                      <div
-                        className={cn(
-                          'max-w-[75%] rounded-2xl px-4 py-3',
-                          message.sender_type === 'user'
-                            ? 'bg-white text-black rounded-tr-sm'
-                            : 'bg-primary-800 text-white rounded-tl-sm'
+                      <div className={cn('max-w-[75%] relative', message.sender_type === 'user' && 'flex flex-col items-end')}>
+                        {editingMessageId === message.id ? (
+                          <div className="bg-white rounded-2xl px-4 py-3 rounded-tr-sm">
+                            <input
+                              type="text"
+                              value={editingContent}
+                              onChange={(e) => setEditingContent(e.target.value)}
+                              className="w-full text-sm text-black bg-transparent outline-none"
+                              autoFocus
+                            />
+                            <div className="flex gap-2 mt-2">
+                              <button
+                                onClick={handleSaveEdit}
+                                className="p-1 text-green-600 hover:bg-green-100 rounded"
+                              >
+                                <Check className="h-4 w-4" />
+                              </button>
+                              <button
+                                onClick={handleCancelEdit}
+                                className="p-1 text-red-600 hover:bg-red-100 rounded"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            className={cn(
+                              'rounded-2xl px-4 py-3',
+                              message.sender_type === 'user'
+                                ? 'bg-white text-black rounded-tr-sm'
+                                : 'bg-primary-800 text-white rounded-tl-sm'
+                            )}
+                          >
+                            <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                            {message.metadata?.edited && (
+                              <span className="text-xs opacity-60">(editado)</span>
+                            )}
+                          </div>
                         )}
-                      >
-                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+
+                        {/* Edit/Delete menu for user messages */}
+                        {message.sender_type === 'user' && message.id !== 'welcome' && !editingMessageId && (
+                          <div className="absolute -left-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                              onClick={() => setShowMenuForMessage(showMenuForMessage === message.id ? null : message.id)}
+                              className="p-1 text-gray-400 hover:text-white rounded"
+                            >
+                              <MoreVertical className="h-4 w-4" />
+                            </button>
+
+                            {showMenuForMessage === message.id && (
+                              <div className="absolute right-0 top-full mt-1 bg-primary-800 rounded-lg shadow-lg border border-primary-700 overflow-hidden z-10">
+                                <button
+                                  onClick={() => handleStartEdit(message.id, message.content)}
+                                  className="flex items-center gap-2 px-3 py-2 text-sm text-white hover:bg-primary-700 w-full"
+                                >
+                                  <Edit2 className="h-3 w-3" />
+                                  Editar
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteMessage(message.id)}
+                                  className="flex items-center gap-2 px-3 py-2 text-sm text-red-400 hover:bg-primary-700 w-full"
+                                >
+                                  <Trash2 className="h-3 w-3" />
+                                  Eliminar
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </motion.div>
                   ))}

@@ -71,7 +71,7 @@ export function Footer() {
           <div className="container mx-auto px-6 py-16">
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Únete a la comunidad WALMER
+                Únete a la comunidad MELO SPORTT
               </h3>
               <p className="text-gray-400 mb-8">
                 Suscríbete a nuestro boletín para ofertas exclusivas, nuevos productos e inspiración de estilo.
@@ -119,7 +119,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <span className="text-3xl font-bold text-white tracking-wider">WALMER</span>
+              <span className="text-3xl font-bold text-white tracking-wider">MELO SPORTT</span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
               Moda premium para el individuo moderno. Descubre piezas atemporales creadas con atención al detalle.
@@ -128,11 +128,11 @@ export function Footer() {
             {/* Contact info */}
             <div className="space-y-3 text-sm">
               <a
-                href="mailto:contacto@walmerstore.com"
+                href="mailto:contacto@melosportt.com"
                 className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
               >
                 <Mail className="h-4 w-4" />
-                contacto@walmerstore.com
+                contacto@melosportt.com
               </a>
               <a
                 href="tel:+573001234567"
@@ -241,7 +241,7 @@ export function Footer() {
         <div className="container mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-500 text-sm text-center md:text-left">
-              &copy; {new Date().getFullYear()} WALMER Store. Todos los derechos reservados.
+              &copy; {new Date().getFullYear()} MELO SPORTT. Todos los derechos reservados.
             </p>
 
             {/* Payment methods */}

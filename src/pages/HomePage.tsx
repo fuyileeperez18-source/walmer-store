@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Star, Truck, Shield, RefreshCw, Headphones } from 'lucide-react';
+import { ArrowRight, Play, Star, Truck, Shield, RefreshCw, Headphones, ShoppingBag } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -8,7 +8,7 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
 import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/animations/AnimatedSection';
-import { Button, CTAButton } from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 import { ProductCard } from '@/components/ui/ProductCard';
 
 // Mock data - replace with real data from Supabase
@@ -146,6 +146,8 @@ const testimonials = [
 ];
 
 export function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
@@ -213,7 +215,19 @@ export function HomePage() {
                 transition={{ delay: 0.8 }}
                 className="flex flex-wrap gap-4"
               >
-                <CTAButton text="Comprar Ahora" onClick={() => {}} />
+                <motion.button
+                  onClick={() => navigate('/shop')}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden border-2 border-white shadow-lg shadow-white/20 transition-all duration-300 hover:shadow-xl hover:shadow-white/30"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    <ShoppingBag className="h-5 w-5" />
+                    Comprar Ahora
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <div className="absolute inset-0 bg-gray-100 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
+                </motion.button>
                 <Button variant="outline" leftIcon={<Play className="h-4 w-4" />}>
                   Ver Lookbook
                 </Button>
@@ -331,46 +345,64 @@ export function HomePage() {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Left Banner */}
             <AnimatedSection animation="slideLeft">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-primary-900"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800"
-                  alt="Colección Hombre"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-                <div className="absolute inset-0 flex items-center p-8">
-                  <div>
-                    <span className="text-sm text-gray-300 uppercase tracking-wider">Nuevo</span>
-                    <h3 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">Colección Hombre</h3>
-                    <Button variant="outline">Ver Hombre</Button>
+              <Link to="/shop?gender=hombre" className="block">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-primary-900"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800"
+                    alt="Colección Hombre"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
+                  <div className="absolute inset-0 flex items-center p-8">
+                    <div>
+                      <span className="text-sm text-gray-300 uppercase tracking-wider">Nuevo</span>
+                      <h3 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">Colección Hombre</h3>
+                      <motion.span
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-transparent text-white border-2 border-white rounded-full font-medium hover:bg-white hover:text-black transition-all duration-300"
+                      >
+                        Ver Hombre
+                        <ArrowRight className="h-4 w-4" />
+                      </motion.span>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             </AnimatedSection>
 
             {/* Right Banner */}
             <AnimatedSection animation="slideRight">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-primary-900"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800"
-                  alt="Colección Mujer"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-                <div className="absolute inset-0 flex items-center p-8">
-                  <div>
-                    <span className="text-sm text-gray-300 uppercase tracking-wider">Tendencia</span>
-                    <h3 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">Colección Mujer</h3>
-                    <Button variant="outline">Ver Mujer</Button>
+              <Link to="/shop?gender=mujer" className="block">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-primary-900"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800"
+                    alt="Colección Mujer"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
+                  <div className="absolute inset-0 flex items-center p-8">
+                    <div>
+                      <span className="text-sm text-gray-300 uppercase tracking-wider">Tendencia</span>
+                      <h3 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">Colección Mujer</h3>
+                      <motion.span
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-transparent text-white border-2 border-white rounded-full font-medium hover:bg-white hover:text-black transition-all duration-300"
+                      >
+                        Ver Mujer
+                        <ArrowRight className="h-4 w-4" />
+                      </motion.span>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             </AnimatedSection>
           </div>
         </div>
@@ -439,7 +471,7 @@ export function HomePage() {
           <AnimatedSection animation="fadeUp">
             <div className="text-center mb-16">
               <span className="text-sm text-gray-400 uppercase tracking-wider">Síguenos</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mt-2">@WalmerStore</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mt-2">@MeloSportt</h2>
             </div>
           </AnimatedSection>
 
@@ -479,12 +511,21 @@ export function HomePage() {
         <div className="relative container mx-auto px-6 text-center">
           <AnimatedSection animation="scale">
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Únete a la Familia WALMER
+              Únete a la Familia MELO SPORTT
             </h2>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Sé el primero en conocer nuevas colecciones, ofertas exclusivas y consejos de estilo.
             </p>
-            <CTAButton text="Suscríbete Ahora" onClick={() => {}} />
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-black font-semibold rounded-full border-2 border-white shadow-lg shadow-white/20 transition-all duration-300 hover:shadow-xl hover:shadow-white/30"
+            >
+              <span className="flex items-center gap-2">
+                Suscríbete Ahora
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </span>
+            </motion.button>
           </AnimatedSection>
         </div>
       </section>

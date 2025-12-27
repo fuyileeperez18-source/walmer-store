@@ -122,8 +122,8 @@ export function AdminSettings() {
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <Input label="Store Name" defaultValue="WALMER Store" />
-                  <Input label="Contact Email" type="email" defaultValue="hello@walmerstore.com" />
+                  <Input label="Nombre de la Tienda" defaultValue="MELO SPORTT" />
+                  <Input label="Email de Contacto" type="email" defaultValue="contacto@melosportt.com" />
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -176,10 +176,10 @@ export function AdminSettings() {
                 </div>
 
                 <Input
-                  label="Notification Email"
+                  label="Email de Notificaciones"
                   type="email"
-                  defaultValue="admin@walmerstore.com"
-                  hint="All notifications will be sent to this email"
+                  defaultValue="admin@melosportt.com"
+                  hint="Todas las notificaciones se enviarán a este correo"
                 />
               </div>
             )}
@@ -283,31 +283,31 @@ export function AdminSettings() {
                 <h2 className="text-xl font-semibold text-white mb-6">SEO Settings</h2>
 
                 <Input
-                  label="Site Title"
-                  defaultValue="WALMER Store - Premium Fashion"
-                  hint="This appears in search results and browser tabs"
+                  label="Título del Sitio"
+                  defaultValue="MELO SPORTT - Moda Deportiva Premium"
+                  hint="Aparece en resultados de búsqueda y pestañas del navegador"
                 />
 
                 <Textarea
-                  label="Meta Description"
-                  defaultValue="Discover premium fashion at WALMER Store. Shop the latest trends in clothing, accessories, and more with free shipping on orders over $100."
-                  hint="Recommended: 150-160 characters"
+                  label="Meta Descripción"
+                  defaultValue="Descubre moda deportiva premium en MELO SPORTT. Compra las últimas tendencias en ropa, accesorios y más con envío gratis en compras mayores a $200.000."
+                  hint="Recomendado: 150-160 caracteres"
                 />
 
                 <Input
-                  label="Meta Keywords"
-                  defaultValue="fashion, clothing, premium, store, accessories"
-                  hint="Separate keywords with commas"
+                  label="Palabras Clave"
+                  defaultValue="moda, ropa, deportiva, tienda, accesorios, Colombia"
+                  hint="Separa las palabras clave con comas"
                 />
 
                 <div className="p-4 bg-primary-800 rounded-lg">
-                  <h3 className="text-white font-medium mb-3">Social Media Preview</h3>
+                  <h3 className="text-white font-medium mb-3">Vista Previa en Redes</h3>
                   <div className="border border-primary-700 rounded-lg overflow-hidden">
                     <div className="h-32 bg-primary-700"></div>
                     <div className="p-4">
-                      <p className="text-blue-400 text-sm">walmerstore.com</p>
-                      <p className="text-white font-medium">WALMER Store - Premium Fashion</p>
-                      <p className="text-gray-400 text-sm">Discover premium fashion at WALMER Store...</p>
+                      <p className="text-blue-400 text-sm">melosportt.com</p>
+                      <p className="text-white font-medium">MELO SPORTT - Moda Deportiva Premium</p>
+                      <p className="text-gray-400 text-sm">Descubre moda deportiva premium en MELO SPORTT...</p>
                     </div>
                   </div>
                 </div>
